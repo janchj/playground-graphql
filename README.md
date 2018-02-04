@@ -1,3 +1,9 @@
 # playground-graphql
 
-Simple graphql API.
+Sample GraphQL API using nodejs.
+
+## Installation
+
+## Features
+
+## Next Steps
