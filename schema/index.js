@@ -1,9 +1,6 @@
 const {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLNonNull,
   GraphQLList
 } = require('graphql');
 
@@ -15,8 +12,6 @@ const {
   hops,
   recipes
 } = require('../data');
-
-// const SpiritType = require('./types/spirit');
 
 const {
   beerStyle,
@@ -47,18 +42,7 @@ const RootQueryType = new GraphQLObjectType({
       type: new GraphQLList(recipe),
       description: 'List of beer recipes',
       resolve: () => recipes
-    },
-    /* spirit: {
-      type: SpiritType,
-      description: 'Details for a spirit',
-      args: {
-        key: { type: new GraphQLNonNull(GraphQLID) }
-      },
-      resolve: (obj, args, { pgPool }) => {
-        console.log(pgdb(pgPool).getSpirit(args.key));
-        return pgdb(pgPool).getSpirit(args.key);
-      }
-    } */
+    }
   }
 });
 
