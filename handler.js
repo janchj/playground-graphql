@@ -1,28 +1,25 @@
 const server = require('apollo-server-lambda');
 const lambdaPlayground = require('graphql-playground-middleware-lambda').default;
 
-const { schema } = require('./schema');
+// graphql schema
+const schema = require('./schema');
 
-exports.graphqlHandler = server.graphqlLambda({ schema });
-
-/* exports.graphqlHandler = function graphqlHandler(event, context, callback) {
-  console.log(event);
-  function callbackFilter(error, output) {
-    // eslint-disable-next-line no-param-reassign
-    // output.headers['Access-Control-Allow-Origin'] = '*';
-    console.log(error);
+// handler for POST /graphql
+exports.graphqlHandler = (event, context, callback) => {
+  const callbackFilter = (error, output) => {
+    output.headers['Access-Control-Allow-Origin'] = '*';
     callback(error, output);
-  }
-
-  const handler = graphqlLambda({ schema, tracing: true });
+  };
+  const handler = server.graphqlLambda({ schema });
   return handler(event, context, callbackFilter);
-}; */
+};
 
-// for local endpointURL is /graphql and for prod it is /stage/graphql
+// handler for GET /playground
 exports.playgroundHandler = lambdaPlayground({
-  endpoint: '/graphql',
+  endpoint: '/dev/graphql',
 });
 
+// handler for GET /graphiql
 exports.graphiqlHandler = server.graphiqlLambda({
-  endpointURL: '/graphql',
+  endpointURL: '/dev/graphql',
 });

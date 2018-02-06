@@ -4,12 +4,9 @@ const {
   GraphQLList
 } = require('graphql');
 
-// const pgdb = require('../db/pgdb');
+const db = require('../db');
 
 const {
-  beerStyles,
-  yeasts,
-  hops,
   recipes
 } = require('../data');
 
@@ -20,23 +17,29 @@ const {
   recipe
 } = require('./types');
 
+const {
+  createHop,
+  createYeast,
+  createBeerStyle
+} = require('./mutations');
+
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     beerStyles: {
       type: new GraphQLList(beerStyle),
       description: 'Types of beer',
-      resolve: () => beerStyles
+      resolve: () => db.beerStyles.getAllBeerStyles().then(response => response.Items)
     },
     yeast: {
       type: new GraphQLList(yeast),
       description: 'Types of yeast',
-      resolve: () => yeasts
+      resolve: () => db.yeast.getAllYeast().then(response => response.Items)
     },
     hops: {
       type: new GraphQLList(hop),
       description: 'Types of hops',
-      resolve: () => hops
+      resolve: () => db.hops.getAllHops().then(response => response.Items)
     },
     recipes: {
       type: new GraphQLList(recipe),
@@ -46,9 +49,18 @@ const RootQueryType = new GraphQLObjectType({
   }
 });
 
+const RootMutationType = new GraphQLObjectType({
+  name: 'RootMutationType',
+  fields: {
+    createHop,
+    createYeast,
+    createBeerStyle
+  }
+});
+
 const schema = new GraphQLSchema({
-  query: RootQueryType
+  query: RootQueryType,
+  mutation: RootMutationType
 });
 
 module.exports = schema;
-
