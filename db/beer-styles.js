@@ -18,13 +18,17 @@ const createBeerStyle = (Item) => {
       name: Item.name
     }
   };
-  return dynamoDb.put(params).promise();
+  return dynamoDb.put(params).promise()
+    .then(response => response)
+    .catch(err => console.log(err));
 };
 
 /**
  * GET list of all beer styles
  */
-const getAllBeerStyles = () => dynamoDb.scan(options).promise();
+const getAllBeerStyles = () => dynamoDb.scan(options).promise()
+  .then(response => response.Items)
+  .catch(err => console.log(err));
 
 module.exports = {
   createBeerStyle,

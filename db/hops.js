@@ -18,13 +18,17 @@ const createHop = (Item) => {
       name: Item.name
     }
   };
-  return dynamoDb.put(params).promise();
+  return dynamoDb.put(params).promise()
+    .then(response => response)
+    .catch(err => console.log(err));
 };
 
 /**
  * GET list of all hops
  */
-const getAllHops = () => dynamoDb.scan(options).promise();
+const getAllHops = () => dynamoDb.scan(options).promise()
+  .then(response => response.Items)
+  .catch(err => console.log(err));
 
 module.exports = {
   createHop,

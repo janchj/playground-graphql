@@ -29,17 +29,17 @@ const RootQueryType = new GraphQLObjectType({
     beerStyles: {
       type: new GraphQLList(beerStyle),
       description: 'Types of beer',
-      resolve: () => db.beerStyles.getAllBeerStyles().then(response => response.Items)
+      resolve: () => db.beerStyles.getAllBeerStyles()
     },
     yeast: {
       type: new GraphQLList(yeast),
       description: 'Types of yeast',
-      resolve: () => db.yeast.getAllYeast().then(response => response.Items)
+      resolve: () => db.yeast.getAllYeast()
     },
     hops: {
       type: new GraphQLList(hop),
       description: 'Types of hops',
-      resolve: () => db.hops.getAllHops().then(response => response.Items)
+      resolve: () => db.hops.getAllHops()
     },
     recipes: {
       type: new GraphQLList(recipe),

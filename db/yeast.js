@@ -19,13 +19,17 @@ const createYeast = (item) => {
       type: item.type
     }
   };
-  return dynamoDb.put(params).promise();
+  return dynamoDb.put(params).promise()
+    .then(response => response)
+    .catch(err => console.log(err));
 };
 
 /**
  * GET list of all yeast
  */
-const getAllYeast = () => dynamoDb.scan(options).promise();
+const getAllYeast = () => dynamoDb.scan(options).promise()
+  .then(response => response.Items)
+  .catch(err => console.log(err));
 
 module.exports = {
   createYeast,
