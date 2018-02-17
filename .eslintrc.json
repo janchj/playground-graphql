@@ -10,7 +10,9 @@
       "no-console": 0,
       "no-plusplus": 0
     },
+    "parser": "babel-eslint",
     "plugins": [
-        "import"
+        "import",
+        "flowtype"
     ]
 }
