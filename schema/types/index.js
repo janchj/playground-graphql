@@ -5,7 +5,7 @@ import hop from './hop';
 import yeast from './yeast';
 import recipe from './recipe';
 
-export default {
+export {
   hop,
   yeast,
   beerStyle,

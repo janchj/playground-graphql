@@ -1,27 +1,14 @@
-const {
+// @flow
+
+import {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLList
-} = require('graphql');
+} from 'graphql';
 
-const db = require('../db');
-
-const {
-  recipes
-} = require('../data');
-
-const {
-  beerStyle,
-  hop,
-  yeast,
-  recipe
-} = require('./types');
-
-const {
-  createHop,
-  createYeast,
-  createBeerStyle
-} = require('./mutations');
+import db from '../db';
+import { beerStyle, hop, yeast, recipe } from './types';
+import mutations from './mutations';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -44,7 +31,7 @@ const RootQueryType = new GraphQLObjectType({
     recipes: {
       type: new GraphQLList(recipe),
       description: 'List of beer recipes',
-      resolve: () => recipes
+      resolve: () => db.recipes.getAllRecipes()
     }
   }
 });
@@ -52,9 +39,9 @@ const RootQueryType = new GraphQLObjectType({
 const RootMutationType = new GraphQLObjectType({
   name: 'RootMutationType',
   fields: {
-    createHop,
-    createYeast,
-    createBeerStyle
+    createHop: mutations.createHop,
+    createYeast: mutations.createYeast,
+    createBeerStyle: mutations.createBeerStyle,
   }
 });
 
@@ -63,4 +50,4 @@ const schema = new GraphQLSchema({
   mutation: RootMutationType
 });
 
-module.exports = schema;
+export default schema;
