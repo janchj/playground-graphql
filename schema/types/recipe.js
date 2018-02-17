@@ -1,18 +1,21 @@
-const {
+import {
   GraphQLObjectType,
   GraphQLID,
   GraphQLNonNull,
   GraphQLString,
   GraphQLList
-} = require('graphql');
+} from 'graphql';
 
-const hop = require('./hop');
+import yeast from './yeast';
+import hop from './hop';
 
-module.exports = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'recipe',
   fields: {
     id: { type: GraphQLID },
     name: { type: new GraphQLNonNull(GraphQLString) },
+    style: { type: new GraphQLNonNull(GraphQLString) },
     hops: { type: new GraphQLList(hop) },
+    yeast: { type: new GraphQLList(yeast) },
   }
 });

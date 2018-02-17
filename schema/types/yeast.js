@@ -1,11 +1,11 @@
-const {
+import {
   GraphQLObjectType,
   GraphQLID,
   GraphQLNonNull,
   GraphQLString
-} = require('graphql');
+} from 'graphql';
 
-module.exports = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'yeast',
   fields: {
     id: { type: GraphQLID },
@@ -13,4 +13,3 @@ module.exports = new GraphQLObjectType({
     type: { type: new GraphQLNonNull(GraphQLString), description: 'Type of yeast' },
   }
 });
-

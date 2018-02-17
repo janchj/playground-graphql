@@ -1,3 +1,5 @@
+// @flow
+
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -5,7 +7,7 @@ const {
   GraphQLString
 } = require('graphql');
 
-module.exports = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'beerStyle',
   fields: {
     id: { type: GraphQLID },

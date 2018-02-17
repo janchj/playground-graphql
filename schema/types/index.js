@@ -1,9 +1,11 @@
-const beerStyle = require('./beer-style');
-const hop = require('./hop');
-const yeast = require('./yeast');
-const recipe = require('./recipe');
+// @flow
 
-module.exports = {
+import beerStyle from './beer-style';
+import hop from './hop';
+import yeast from './yeast';
+import recipe from './recipe';
+
+export default {
   hop,
   yeast,
   beerStyle,
