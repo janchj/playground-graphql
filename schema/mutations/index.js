@@ -1,9 +1,11 @@
-const createHop = require('./hops');
-const createYeast = require('./yeast');
-const createBeerStyle = require('./beer-styles');
+import createHop from './hops';
+import createYeast from './yeast';
+import createBeerStyle from './beer-styles';
+import createRecipe from './recipes';
 
-module.exports = {
+export default {
   createHop,
   createYeast,
-  createBeerStyle
+  createBeerStyle,
+  createRecipe
 };

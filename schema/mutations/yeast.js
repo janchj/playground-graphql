@@ -1,13 +1,15 @@
-const {
+// @flow
+
+import {
   GraphQLNonNull,
   GraphQLString
-} = require('graphql');
+} from 'graphql';
 
-const { yeast } = require('../types');
-const db = require('../../db');
+import types from '../types';
+import db from '../../db';
 
-module.exports = {
-  type: yeast,
+export default {
+  type: types.yeast,
   description: 'Create yeast',
   args: {
     name: { type: new GraphQLNonNull(GraphQLString), description: 'Name of yeast' },

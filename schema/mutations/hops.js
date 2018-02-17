@@ -1,13 +1,16 @@
-const {
+
+// @flow
+
+import {
   GraphQLNonNull,
   GraphQLString
-} = require('graphql');
+} from 'graphql';
 
-const { hop } = require('../types');
-const db = require('../../db');
+import types from '../types';
+import db from '../../db';
 
-module.exports = {
-  type: hop,
+export default {
+  type: types.hop,
   description: 'Create hop',
   args: {
     name: { type: new GraphQLNonNull(GraphQLString), description: 'Name of hop' }

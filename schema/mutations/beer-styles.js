@@ -1,12 +1,12 @@
-const {
+import {
   GraphQLNonNull,
   GraphQLString
-} = require('graphql');
+} from 'graphql';
 
-const { beerStyle } = require('../types');
-const db = require('../../db');
+import beerStyle from '../types';
+import db from '../../db';
 
-module.exports = {
+export default {
   type: beerStyle,
   description: 'Create beer style',
   args: {
@@ -14,7 +14,7 @@ module.exports = {
   },
   resolve(source, args) {
     return db.beerStyles.createBeerStyle(args)
-      .then(response => response.id)
+      .then(response => response)
       .catch(err => console.log(err));
   }
 };
