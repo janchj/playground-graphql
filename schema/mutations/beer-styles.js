@@ -3,7 +3,7 @@ import {
   GraphQLString
 } from 'graphql';
 
-import beerStyle from '../types';
+import { beerStyle } from '../types';
 import db from '../../db';
 
 export default {

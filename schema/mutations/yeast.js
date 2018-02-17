@@ -1,15 +1,13 @@
-// @flow
-
 import {
   GraphQLNonNull,
   GraphQLString
 } from 'graphql';
 
-import types from '../types';
+import { yeast } from '../types';
 import db from '../../db';
 
 export default {
-  type: types.yeast,
+  type: yeast,
   description: 'Create yeast',
   args: {
     name: { type: new GraphQLNonNull(GraphQLString), description: 'Name of yeast' },

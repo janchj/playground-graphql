@@ -1,16 +1,13 @@
-
-// @flow
-
 import {
   GraphQLNonNull,
   GraphQLString
 } from 'graphql';
 
-import types from '../types';
+import { hop } from '../types';
 import db from '../../db';
 
 export default {
-  type: types.hop,
+  type: hop,
   description: 'Create hop',
   args: {
     name: { type: new GraphQLNonNull(GraphQLString), description: 'Name of hop' }
