@@ -1,7 +1,16 @@
-const AWS = require('aws-sdk');
+import dynamodb from 'serverless-dynamodb-client';
+import AWS from 'aws-sdk';
+import uuid from 'uuid';
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const uuid = require('uuid');
+let dynamoDb;
+
+// handle online/offline
+// TODO: find better way
+if (process.env.NODE_ENV === 'production') {
+  dynamoDb = new AWS.DynamoDB.DocumentClient();
+} else {
+  dynamoDb = dynamodb.doc; // return an instance of new AWS.DynamoDB.DocumentClient()
+}
 
 const options = {
   TableName: `${process.env.DYNAMODB_TABLE}-hops`
@@ -30,7 +39,7 @@ const getAllHops = () => dynamoDb.scan(options).promise()
   .then(response => response.Items)
   .catch(err => console.log(err));
 
-module.exports = {
+export {
   createHop,
   getAllHops
 };

@@ -1,9 +1,13 @@
+// @flow
+
 const yeast = require('./yeast');
 const hops = require('./hops');
 const beerStyles = require('./beer-styles');
+const recipes = require('./recipes');
 
-module.exports = {
+export default {
   hops,
   yeast,
-  beerStyles
+  beerStyles,
+  recipes
 };

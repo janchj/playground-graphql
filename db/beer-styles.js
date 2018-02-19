@@ -1,6 +1,16 @@
-const AWS = require('aws-sdk');
+import dynamodb from 'serverless-dynamodb-client';
+import AWS from 'aws-sdk';
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+let dynamoDb;
+
+// handle online/offline
+// TODO: find better way
+if (process.env.NODE_ENV === 'production') {
+  dynamoDb = new AWS.DynamoDB.DocumentClient();
+} else {
+  dynamoDb = dynamodb.doc; // return an instance of new AWS.DynamoDB.DocumentClient()
+}
+
 const uuid = require('uuid');
 
 const options = {
@@ -30,7 +40,7 @@ const getAllBeerStyles = () => dynamoDb.scan(options).promise()
   .then(response => response.Items)
   .catch(err => console.log(err));
 
-module.exports = {
+export {
   createBeerStyle,
   getAllBeerStyles
 };

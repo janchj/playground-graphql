@@ -2,6 +2,27 @@ service: serverless-graphql
 
 frameworkVersion: ">=1.21.0 <2.0.0"
 
+plugins:
+  - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  stage: "${opt:stage, self:provider.stage}"
+  serverless-offline:
+    port: 4000
+  webpackIncludeModules: true
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: ${self:provider.environment.DYNAMODB_TABLE}-yeast
+            sources: [seed-data/yeast.json]
 provider:
   name: aws
   runtime: nodejs6.10
@@ -25,21 +46,21 @@ functions:
     handler: handler.graphqlHandler
     events:
     - http:
-        path: graphql
+        path: ${opt:stage, self:provider.stage}/graphql
         method: post
         cors: true
   playground:
     handler: handler.playgroundHandler
     events:
     - http:
-        path: playground
+        path: ${opt:stage, self:provider.stage}/playground
         method: get
         cors: true
   graphiql:
     handler: handler.graphiqlHandler
     events:
     - http:
-        path: graphiql
+        path: ${opt:stage, self:provider.stage}/graphiql
         method: get
         cors: true
 

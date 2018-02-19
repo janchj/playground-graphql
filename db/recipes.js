@@ -9,23 +9,25 @@ let dynamoDb;
 if (process.env.NODE_ENV === 'production') {
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 } else {
-  dynamoDb = dynamodb.doc;
+  dynamoDb = dynamodb.doc; // return an instance of new AWS.DynamoDB.DocumentClient()
 }
 
 const options = {
-  TableName: `${process.env.DYNAMODB_TABLE}-yeast`
+  TableName: `${process.env.DYNAMODB_TABLE}-recipes`
 };
 
 /**
- * CREATE new yeast
+ * CREATE new beer recipe
  */
-const createYeast = (item) => {
+const createRecipe = (Item) => {
   const params = {
     TableName: options.TableName,
     Item: {
       id: uuid.v1(),
-      name: item.name,
-      type: item.type
+      name: Item.name,
+      style: Item.style,
+      hops: Item.hops,
+      yeast: Item.yeast
     }
   };
   return dynamoDb.put(params).promise()
@@ -34,15 +36,13 @@ const createYeast = (item) => {
 };
 
 /**
- * GET list of all yeast
+ * GET list of all beer recipes
  */
-const getAllYeast = () => dynamoDb.scan(options).promise()
+const getAllRecipes = () => dynamoDb.scan(options).promise()
   .then(response => response.Items)
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch(err => console.log(err));
 
 export {
-  createYeast,
-  getAllYeast
+  createRecipe,
+  getAllRecipes
 };
